@@ -26,6 +26,7 @@ VALUES
 ("Praising Earth’s New King", "14-praising-earths-new-king"),
 ("Praise Jehovah’s Firstborn!", "15-praise-jehovahs-firstborn"),
 ("Praise Jah for His Son, the Anointed", "16-praise-jah-for-his-son-the-anointed"),
+("“I Want To”", "17-i-want-to"),
 ("Grateful for the Ransom", "18-grateful-for-the-ransom"),
 ("The Lord’s Evening Meal", "19-the-lords-evening-meal"),
 ("You Gave Your Precious Son", "20-you-gave-your-precious-son"),
