@@ -12,14 +12,14 @@ app.set("view engine", "ejs"); //sets the type of view engine (which is what ren
 // Serve static files (like your public HTML and javascript) from the 'public' directory
 app.use(express.static("public"));
 
-import { getSongTitle } from "./services/queryDatabase.js"
+import { getSongTitle, getQueryParameter } from "./services/queryDatabase.js"
 
 //route that renders the main index page
 app.get("/", (req, res) => {
     res.render("index");
 });
 
-//route that returns the SONG TITLE based on the (randomly generated) number (the id)
+//route that returns the SONG TITLE based, and song link based on the (randomly generated) number (the id)
 app.post("/song-number/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -27,16 +27,30 @@ app.post("/song-number/:id", async (req, res) => {
         //getting the song title from the database
         const songTitle = await getSongTitle(id);
 
-        //sending back json to the client 
-        res.json({ songTitle: songTitle });
+        //getting the query parameter from the database
+        const queryParam = await getQueryParameter(id);
+
+        res.json({ songTitle: songTitle, queryParam: queryParam }); //sending back the song title  to the client
+
     } catch (err) {
         console.error("There's an error trying to fetch the song title. The error: ", err);
         res.status(500).send("Sorry, there was an error getting the song title!");
     }
 });
 
-/*
+// app.get("/song-number/:id", async (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         //getting the query parameter from the database
+//         const queryParam = await getQueryParameter(id);
+//         res.json({ queryParam: queryParam }); //sending back json to the client
+//     } catch (err) {
+//         console.error("There's an error trying to fetch the query parameter. The error: ", err);
+//         res.status(500).send("Sorry, there was an error getting the query parameter!");
+//     }
+// });
 
+/*
 Go to 
  */
 

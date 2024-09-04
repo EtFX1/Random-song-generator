@@ -19,3 +19,9 @@ export async function getSongTitle(id) {
     const songTitle = (rows[0].song_title);
     return songTitle;
 }
+
+export async function getQueryParameter(id) {
+    const [rows] = await pool.query("SELECT song_url_part FROM song_data WHERE song_id = ?", [id]);
+    const queryParam = rows[0].song_url_part;
+    return queryParam;
+}

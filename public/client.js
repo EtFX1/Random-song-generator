@@ -1,14 +1,7 @@
 const generatedNum = document.querySelector("#generated-num");
 const songTitle = document.querySelector("#song-title");
 const generationForm = document.querySelector("#generation-form");
-
-
-/*
-when user clicks on generate button, a random number between 1 and 158 is generated
-then #generated-num is populated with the number
-a fetch request is is sent to the route to /song-title route
-*/
-
+const linkBtn = document.querySelector("#link-btn");
 
 //generates random number
 function generateRandomNum() {
@@ -17,24 +10,26 @@ function generateRandomNum() {
 }
 
 //sends random number to backend
-async function sendData() {
+async function sendNumber() {
     try {
         const response = await fetch(`/song-number/${generatedNum.textContent}`, {
             method: "POST"
         });
-        const songTitleFromBackend = await response.json();
-        songTitle.innerHTML = songTitleFromBackend.songTitle;
+        const data = await response.json();
+
+        songTitle.innerHTML = data.songTitle;
+        linkBtn.href = `https://www.jw.org/en/library/music-songs/sing-out-joyfully/${data.queryParam}/?media=sjjm`;
+        console.log(linkBtn);
 
     } catch (e) {
         console.error(e);
     }
 }
 
-
-//on submit, the functions that generate the random number and send it to the server are called
+//on submit, event listener calls the functions that generate the random number and send it to the server are called
 generationForm.addEventListener("submit", function (event) {
     event.preventDefault(); //prevent default form submission
     generatedNum.textContent = generateRandomNum(); //setting html to randomly generated number
-    sendData();
+    sendNumber();
 });
 
