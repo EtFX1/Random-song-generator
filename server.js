@@ -23,13 +23,22 @@ app.get("/", (req, res) => {
 app.post("/song-number/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const songTitle = await getSongTitle(id); //getting the song title from the database
-        res.render("index", { songTitle: songTitle }); //rendering the index file ans passing down the song title
+
+        //getting the song title from the database
+        const songTitle = await getSongTitle(id);
+
+        //sending back json to the client 
+        res.json({ songTitle: songTitle });
     } catch (err) {
         console.error("There's an error trying to fetch the song title. The error: ", err);
         res.status(500).send("Sorry, there was an error getting the song title!");
     }
 });
+
+/*
+
+Go to 
+ */
 
 //
 app.use((req, res, next) => {

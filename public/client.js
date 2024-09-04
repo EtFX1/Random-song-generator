@@ -22,6 +22,9 @@ async function sendData() {
         const response = await fetch(`/song-number/${generatedNum.textContent}`, {
             method: "POST"
         });
+        const songTitleFromBackend = await response.json();
+        songTitle.innerHTML = songTitleFromBackend.songTitle;
+
     } catch (e) {
         console.error(e);
     }
