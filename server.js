@@ -1,20 +1,30 @@
 import express from "express"; //importing express module
 const app = express(); //using the express module express() contains your entire web application
 
+// For parsing application/json
 app.use(express.json());
 
-import { getSongTitle } from "./connectToDatabase.js"
+// For parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
+app.set("view engine", "ejs"); //sets the type of view engine
+
+// Serve static files (like your public HTML and javascript) from the 'public' directory
+app.use(express.static("public"));
+
+import { getSongTitle } from "./services/queryDatabase.js"
+
+//route that renders the main index page
 app.get("/", (req, res) => {
-    res.send("Homepage");
-})
+    res.render("index");
+});
 
 //route that returns the SONG TITLE based on the (randomly generated) number (the id)
-app.get("/song-title/:id", async (req, res) => {
+app.post("/song-number/:id", async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.params.id;
         const songTitle = await getSongTitle(id);
-        res.send(songTitle);
+        console.log(songTitle);
     } catch (err) {
         console.error("There's an error trying to fetch the song title. The error: ", err);
         res.status(500).send("Sorry, there was an error getting the song title!");
