@@ -7,7 +7,7 @@ app.use(express.json());
 // For parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.set("view engine", "ejs"); //sets the type of view engine
+app.set("view engine", "ejs"); //sets the type of view engine (which is what renders the
 
 // Serve static files (like your public HTML and javascript) from the 'public' directory
 app.use(express.static("public"));
@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
 app.post("/song-number/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const songTitle = await getSongTitle(id);
-        console.log(songTitle);
+        const songTitle = await getSongTitle(id); //getting the song title from the database
+        res.render("index", { songTitle: songTitle }); //rendering the index file ans passing down the song title
     } catch (err) {
         console.error("There's an error trying to fetch the song title. The error: ", err);
         res.status(500).send("Sorry, there was an error getting the song title!");
