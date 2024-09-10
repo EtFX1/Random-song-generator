@@ -13,9 +13,9 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE //the name of the database being queried to
 }).promise();
 
-//function that sends sql query to get a song title based on the  (id)
+//function that sends sql query to get a song title based on the (id)
 export async function getSongTitle(id) {
-    const [rows] = await pool.query("SELECT song_title FROM song_data WHERE song_id = ?", [id]); //first value of list that's returned from SQL
+    const [rows] = await pool.query("SELECT song_title FROM song_data WHERE song_id = ?", [id]); //first element of list that's returned from SQL (which is an array)
     const songTitle = (rows[0].song_title);
     return songTitle;
 }

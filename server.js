@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-//route that returns the SONG TITLE based, and song link based on the (randomly generated) number (the id)
+//route that returns the SONG TITLE AND correct song link, and song link based on the (randomly generated) number (the id)
 app.post("/song-number/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -38,23 +38,7 @@ app.post("/song-number/:id", async (req, res) => {
     }
 });
 
-// app.get("/song-number/:id", async (req, res) => {
-//     try {
-//         const id = req.params.id;
-//         //getting the query parameter from the database
-//         const queryParam = await getQueryParameter(id);
-//         res.json({ queryParam: queryParam }); //sending back json to the client
-//     } catch (err) {
-//         console.error("There's an error trying to fetch the query parameter. The error: ", err);
-//         res.status(500).send("Sorry, there was an error getting the query parameter!");
-//     }
-// });
-
-/*
-Go to 
- */
-
-//
+//Renders 404 page
 app.use((req, res, next) => {
     res.status(404).send("404 error: We can't find the page you requested");
     //todo: add an html 404 error page
